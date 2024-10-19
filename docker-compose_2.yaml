@@ -9,7 +9,6 @@ services:
      - MONGO_INITDB_ROOT_PASSWORD=password
   my-app:
     build: .
-    image: docker-hub-user/image-name:image-tag
     ports:
       - 3000:3000
     environment:
