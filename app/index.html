@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <!-- Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet" />
+    <!-- SortableJS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+
+    <style>
+      /* Stile per il modale di caricamento */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 1.25rem;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <div class="container mx-auto p-4 w-[80%] relative">
+      <span class="absolute top-0 right-0 m-4" id="mongoStatus"> </span>
+
+      <h1 class="text-4xl font-bold text-center mb-6 text-gray-800">
+        Todo List
+      </h1>
+
+      <!-- Dialog modale per il loader -->
+      <div id="loaderModal" class="modal">
+        <div class="modal-content">
+          <p>Loading todos...</p>
+        </div>
+      </div>
+
+      <!-- Input per aggiungere nuovi todo -->
+      <div class="flex justify-center mb-6">
+        <input
+          type="text"
+          id="newTodo"
+          class="border p-3 rounded w-64 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Add a new todo"
+          onkeydown="if (event.key === 'Enter') addTodo()" />
+        <button
+          onclick="addTodo()"
+          class="bg-blue-500 text-white p-3 rounded ml-2 shadow-md hover:bg-blue-600 transition-colors">
+          Add
+        </button>
+      </div>
+      <!-- Placeholder quando non ci sono più todo -->
+      <p id="placeholder" class="text-center text-gray-500 hidden">
+        No todos left. Add a new todo!
+      </p>
+
+      <!-- Sezioni per todo -->
+      <div>
+        <h2 class="text-2xl font-semibold mb-4 text-gray-700">Not Completed</h2>
+        <ul
+          id="todoList"
+          class="bg-white rounded-lg shadow-md p-4 space-y-2 list-inside"></ul>
+
+        <h2 class="text-2xl font-semibold mb-4 mt-8 text-gray-700">
+          Completed
+        </h2>
+        <ul
+          id="completedList"
+          class="bg-gray-50 rounded-lg shadow-md p-4 space-y-2 list-inside"></ul>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+
+    <script>
+      // Inizializza SortableJS per la lista dei todo
+      const todoList = document.getElementById("todoList");
+      const completedList = document.getElementById("completedList");
+      Sortable.create(todoList, {
+        animation: 150,
+        onEnd: function (evt) {
+          reorderTodos(evt.oldIndex, evt.newIndex);
+        },
+      });
+      Sortable.create(completedList, {
+        animation: 150,
+      });
+    </script>
+  </body>
+</html>

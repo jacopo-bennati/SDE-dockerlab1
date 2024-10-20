@@ -1,7 +1,8 @@
-version: '3'
 services:
   my-app:
     build: .
-    image: docker-hub-user/image-name:image-tag
+    #image: docker-hub-user/image-name:image-tag
     ports:
-     - 3000:3000
+      - 3000:3000
+    environment:
+      - PORT=3000

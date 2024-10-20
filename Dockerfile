@@ -8,4 +8,4 @@ WORKDIR /home/app
 
 RUN npm install
 
-CMD ["node", "myApp.js"]
+CMD ["npm", "start"]

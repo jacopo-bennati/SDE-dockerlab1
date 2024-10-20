@@ -1,0 +1,26 @@
+[
+  {
+    "text": "Buy milk",
+    "completed": false
+  },
+  {
+    "text": "Buy eggs",
+    "completed": false
+  },
+  {
+    "text": "Buy bread",
+    "completed": false
+  },
+  {
+    "text": "Buy butter",
+    "completed": false
+  },
+  {
+    "text": "Buy cheese",
+    "completed": false
+  },
+  {
+    "text": "Buy jam",
+    "completed": true
+  }
+]

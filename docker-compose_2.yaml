@@ -1,12 +1,19 @@
-version: '3'
 services:
   mongodb:
     image: mongo
     ports:
-     - 27017:27017
+      - 27017:27017
     environment:
-     - MONGO_INITDB_ROOT_USERNAME=user
-     - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m" # Limita la dimensione del file di log
+        max-file: "3" # Mantiene fino a 3 file di log
+    volumes:
+      - ./data/db:/data/db # Persistenza dei dati MongoDB
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js # Script di inizializzazione
   my-app:
     build: .
     ports:
@@ -14,5 +21,8 @@ services:
     environment:
       - MONGO_DB_USERNAME=user
       - MONGO_DB_PWD=password
+      - MONGO_DB_HOST=mongodb
+      - MONGO_DB_PORT=27017
+      - MONGO_DB_NAME=todolist
     depends_on:
-     - "mongodb"
+      - "mongodb"
