@@ -1,8 +1,7 @@
-services:
-  my-app:
-    build: .
-    #image: docker-hub-user/image-name:image-tag
+services: # Define the services that make up the application
+  my-app: # Name of the service
+    build: . # Build the image from the Dockerfile in the current directory
     ports:
-      - 3000:3000
+      - 3000:3000 # Map port 3000 on the host to port 3000 in the container
     environment:
-      - PORT=3000
+      - PORT=3000 # Set the PORT environment variable to 3000 in the container

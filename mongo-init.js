@@ -1,12 +1,11 @@
-// mongo-init.js
-db = db.getSiblingDB("todolist"); // Seleziona il database 'todolist'
+db = db.getSiblingDB("todolist"); // Select the todolist database
 db.createUser({
-  user: "user", // Nome utente
+  user: "user", // Username
   pwd: "password", // Password
   roles: [
     {
-      role: "readWrite", // Ruolo di lettura e scrittura
-      db: "todolist", // Database su cui applicare il ruolo
+      role: "readWrite", // Read and write access to the database
+      db: "todolist", // Which database the user has access to
     },
   ],
 });

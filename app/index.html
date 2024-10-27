@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 
     <style>
-      /* Stile per il modale di caricamento */
+      /* Styles for the modal */
       .modal {
         position: fixed;
         top: 0;
@@ -43,14 +43,14 @@
         Todo List
       </h1>
 
-      <!-- Dialog modale per il loader -->
+      <!-- Dialog for loading todos -->
       <div id="loaderModal" class="modal">
         <div class="modal-content">
           <p>Loading todos...</p>
         </div>
       </div>
 
-      <!-- Input per aggiungere nuovi todo -->
+      <!-- Input for adding a new todo -->
       <div class="flex justify-center mb-6">
         <input
           type="text"
@@ -64,12 +64,12 @@
           Add
         </button>
       </div>
-      <!-- Placeholder quando non ci sono più todo -->
+      <!-- Placeholder when no todos are left -->
       <p id="placeholder" class="text-center text-gray-500 hidden">
         No todos left. Add a new todo!
       </p>
 
-      <!-- Sezioni per todo -->
+      <!-- Todo list -->
       <div>
         <h2 class="text-2xl font-semibold mb-4 text-gray-700">Not Completed</h2>
         <ul
@@ -88,7 +88,7 @@
     <script src="app.js"></script>
 
     <script>
-      // Inizializza SortableJS per la lista dei todo
+      // Initialize SortableJS for the todo lists
       const todoList = document.getElementById("todoList");
       const completedList = document.getElementById("completedList");
       Sortable.create(todoList, {

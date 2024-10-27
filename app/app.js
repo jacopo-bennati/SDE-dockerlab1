@@ -1,20 +1,22 @@
-const apiUrl = "/api/todos";
+// Description: Main script for the todo app
+
+const apiUrl = "/api/todos"; // URL of the API
 
 let isFirstLoad = true;
 
-// Funzione per mostrare il modale di caricamento
+// Function to show the loading modal
 function showLoaderModal(show) {
   const loaderModal = document.getElementById("loaderModal");
   loaderModal.style.display = show ? "flex" : "none";
 }
 
-// Funzione per mostrare il placeholder quando non ci sono più todo
+// Function to show the placeholder when there are no more todos
 function showPlaceholder(show) {
   const placeholder = document.getElementById("placeholder");
   placeholder.style.display = show ? "block" : "none";
 }
 
-// Funzione per recuperare e mostrare i todo
+// Function to fetch and display the todos
 async function getTodos() {
   if (isFirstLoad) showLoaderModal(true);
 
@@ -24,8 +26,8 @@ async function getTodos() {
   const todoList = document.getElementById("todoList");
   const completedList = document.getElementById("completedList");
 
-  todoList.innerHTML = ""; // Svuota la lista dei non completati
-  completedList.innerHTML = ""; // Svuota la lista dei completati
+  todoList.innerHTML = "";
+  completedList.innerHTML = "";
 
   let todoCount = 0;
   let completedCount = 0;
@@ -33,8 +35,8 @@ async function getTodos() {
   todos.forEach((todo, index) => {
     const li = document.createElement("li");
     li.className =
-      "flex justify-between items-center bg-gray-100 p-3 rounded shadow hover:shadow-lg transition-shadow"; // Aggiunta classe per nascondere inizialmente
-    li.setAttribute("data-id", todo._id || index); // Identificativo per il drag-and-drop
+      "flex justify-between items-center bg-gray-100 p-3 rounded shadow hover:shadow-lg transition-shadow";
+    li.setAttribute("data-id", todo._id || index); // Identifier for reordering
 
     const todoText = document.createElement("span");
     todoText.textContent = todo.text;
@@ -70,7 +72,7 @@ async function getTodos() {
     li.appendChild(todoText);
     li.appendChild(buttons);
 
-    // Aggiungi l'elemento alla lista
+    // Add the todo to the appropriate list
     if (todo.completed) {
       completedList.appendChild(li);
       completedCount++;
@@ -80,7 +82,7 @@ async function getTodos() {
     }
   });
 
-  // Mostra il placeholder se non ci sono todo
+  // Show placeholder if there are no todos
   if (todoCount === 0 && completedCount === 0) {
     showPlaceholder(true);
   } else {
@@ -93,7 +95,7 @@ async function getTodos() {
   }
 }
 
-// Funzione per aggiungere un nuovo todo
+// Function to add a new todo
 async function addTodo() {
   const newTodoText = document.getElementById("newTodo").value;
 
@@ -105,34 +107,34 @@ async function addTodo() {
     });
     const newTodo = await response.json();
     document.getElementById("newTodo").value = ""; // Reset input
-    document.getElementById("newTodo").focus(); // Focus sull'input
-    getTodos(); // Ricarica la lista con animazione per il nuovo todo
+    document.getElementById("newTodo").focus(); // Focus on input again
+    getTodos(); // Reload the list and animate the addition
   }
 }
 
-// Funzione per eliminare un todo
+// Function to delete a todo
 async function deleteTodo(id) {
   await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
-  getTodos(); // Ricarica la lista e anima l'eliminazione
+  getTodos(); // Reload the list and animate the deletion
 }
 
-// Funzione per completare/incompletare un todo
+// Function to complete/uncomplete a todo
 async function toggleComplete(id, completed) {
   await fetch(`${apiUrl}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ completed: !completed }),
   });
-  getTodos(); // Ricarica la lista e anima il completamento
+  getTodos(); // Reload the list and animate the completion/uncompletion
 }
 
-// Funzione per gestire il riordinamento dei todo
+// Function to handle todo reordering
 function reorderTodos(oldIndex, newIndex) {
-  // Logica per salvare il nuovo ordine lato server, se necessario
+  // Not implemented in this version
   console.log(`Riordinato: ${oldIndex} -> ${newIndex}`);
 }
 
-// Carica i todo all'avvio
+// Load the todos on page load
 getTodos();
 
 async function getDBState() {
@@ -149,4 +151,5 @@ async function getDBState() {
   console.log(data);
 }
 
+// Check if MongoDB is connected
 getDBState();

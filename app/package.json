@@ -3,16 +3,13 @@
   "version": "1.0.0",
   "description": "A simple todo list app using Node.js, Express, and MongoDB",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "start": "node --no-deprecation server.js",
-    "dev": "nodemon server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
     "mongoose": "^7.0.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
   },
   "author": "Jacopo",
   "license": "ISC"

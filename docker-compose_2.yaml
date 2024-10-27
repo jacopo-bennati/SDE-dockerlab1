@@ -1,28 +1,27 @@
 services:
   mongodb:
-    image: mongo
+    image: mongo # Use the official MongoDB image from Docker Hub
     ports:
-      - 27017:27017
+      - 27017:27017 # Map port 27017 on the host to port 27017 in the container
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=user
-      - MONGO_INITDB_ROOT_PASSWORD=password
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m" # Limita la dimensione del file di log
-        max-file: "3" # Mantiene fino a 3 file di log
+      - MONGO_INITDB_ROOT_USERNAME=user # Set the root username for MongoDB
+      - MONGO_INITDB_ROOT_PASSWORD=password # Set the root password for MongoDB
     volumes:
-      - ./data/db:/data/db # Persistenza dei dati MongoDB
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js # Script di inizializzazione
-  my-app:
-    build: .
+      # Mount the host directory ./data/db to the container directory /data/db
+      - ./data/db:/data/db # Persist the MongoDB data in the host directory ./data/db
+      # Mount the host file ./mongo-init.js to the container file /docker-entrypoint-initdb.d/mongo-init.js
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js # Initialize the MongoDB database with the script in mongo-init.js
+  my-app: # Define the my-app service
+    build: . # Build the image from the Dockerfile in the current directory
     ports:
-      - 3000:3000
+      - 7000:3000 # Map port 3333 on the host to port 3000 in the container (changed from 3000:3000)
     environment:
-      - MONGO_DB_USERNAME=user
-      - MONGO_DB_PWD=password
-      - MONGO_DB_HOST=mongodb
-      - MONGO_DB_PORT=27017
-      - MONGO_DB_NAME=todolist
+      - MONGO_DB_USERNAME=user # Set the MONGO_DB_USERNAME environment variable to user
+      - MONGO_DB_PWD=password # Set the MONGO_DB_PWD environment variable to password
+      - MONGO_DB_HOST=mongodb # Set the MONGO_DB_HOST environment variable to mongodb
+      - MONGO_DB_PORT=27017 # Set the MONGO_DB_PORT environment variable to 27017
+      - MONGO_DB_NAME=todolist # Set the MONGO_DB_NAME environment variable to todolist
+      - PORT=3000 # Set the PORT environment variable to 3000
+      - HOST_PORT=7000 # Set the HOST_PORT environment variable to 6000
     depends_on:
-      - "mongodb"
+      - "mongodb" # Start the mongodb service before the my-app service
