@@ -16,6 +16,7 @@ Before running the project, ensure you have the following installed on your mach
 - **Docker Compose**: [Install Docker Compose](https://docs.docker.com/compose/install/)
 
 If you are running the project on the downloaded VirtualBox image you should be ready to go.
+In this case remember to run the commands as **superuser** (`sudo <command>`)
 
 ## Usage
 
