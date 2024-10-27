@@ -15,7 +15,7 @@ services:
   my-app: # Define the my-app service
     build: . # Build the image from the Dockerfile in the current directory
     ports:
-      - 7000:3000 # Map port 3333 on the host to port 3000 in the container (changed from 3000:3000)
+      - 7000:3000 # Map port 7000 on the host to port 3000 in the container (changed from 3000:3000)
     environment:
       - MONGO_DB_USERNAME=user # Set the MONGO_DB_USERNAME environment variable to user
       - MONGO_DB_PWD=password # Set the MONGO_DB_PWD environment variable to password
@@ -23,6 +23,6 @@ services:
       - MONGO_DB_PORT=27017 # Set the MONGO_DB_PORT environment variable to 27017
       - MONGO_DB_NAME=todolist # Set the MONGO_DB_NAME environment variable to todolist
       - PORT=3000 # Set the PORT environment variable to 3000
-      - HOST_PORT=7000 # Set the HOST_PORT environment variable to 6000
+      - HOST_PORT=7000 # Set the HOST_PORT environment variable to 7000
     depends_on:
       - "mongodb" # Start the mongodb service before the my-app service
